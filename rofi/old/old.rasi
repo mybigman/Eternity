@@ -1,0 +1,63 @@
+* {
+    background-color: #00000000;
+    text-color: #727297;
+    font: "Font Awesome 5 Free Solid, Font Awesome 5 Free Brands, Anka/Coder Regular 16";
+    highlight: none;
+}
+ 
+window {
+    width: 100%;
+    height: 100%;
+    text-color: #c4c5c5;
+    background-color: #181819D9;
+}
+ 
+mainbox {
+    padding: 20% 30% 20% 30%;
+    background-color: #00000000;
+}
+ 
+inputbar {
+    background-color: #00000000;
+    padding: 20px 20px 20px 20px;
+    border: 1px;
+    border-radius: 5px;
+    border-color: #c4c5c5;
+}
+ 
+prompt {
+    background-color: #00000000;
+    padding: 0px 30px 0px 0px;
+}
+ 
+entry {
+    background-color: #00000000;
+}
+ 
+message {
+    background-color: #00000000;
+}
+ 
+textbox {
+    background-color: #00000000;
+    font: "Anka/Coder Regular 14";
+}
+ 
+sidebar {
+    background-color: #00000000;
+}
+ 
+listview {
+    background-color: #00000000;
+    dynamic: false;
+}
+element {
+    padding: 20px 0px;
+}
+element selected {
+    text-color: #c4c5c5;
+}
+ci {
+    text-color: #00000000;
+}
+

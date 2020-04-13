@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/barbarossa/.config/wpg/wallpapers/alena-aenami-eternity-1080px.jpg' 

@@ -1,0 +1,94 @@
+#!/bin/env bash
+
+wallpaper=$2
+cachepath=$HOME/.cache/mantablockscreen
+cropuser=$cachepath/$USER-pic-crop.png
+fullname=`getent passwd $USER | cut -d ":" -f 5 | cut -d "," -f 1`
+full_alias="${fullname} (${USER})"
+if [[ -n $fullname ]]; then
+	full_alias="${fullname} (${USER})"
+else
+	full_alias=$USER
+fi
+
+width=$(xrandr --query | grep ' connected' | grep -o '[0-9][0-9]*x[0-9][0-9]*[^ ]*' | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/' |cut -d "x" -f 1 |head -n1)
+height=$(xrandr --query | grep ' connected' | grep -o '[0-9][0-9]*x[0-9][0-9]*[^ ]*' | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/' |cut -d "x" -f 2 |head -n1)
+half_width=$((width/2))
+half_height=$((height/2))
+
+fg_color=fefefeff
+wrong_color=f82a11aa
+highlight_color=39393999
+verif_color=fefefe66
+
+cropuser() {
+	if [[ ! -d $HOME/.cache/mantablockscreen ]]; then
+		mkdir $HOME/.cache/mantablockscreen
+	fi
+	ava_home=$HOME/.face
+	ava_var=/var/lib/AccountsService/icons/$USER
+	userpic=@pkgdatadir@/userpic.png
+	if [[ -e $ava_home ]]; then
+		userpic=$ava_home
+	elif [[ -e $ava_var ]]; then
+		userpic=$ava_var
+	fi
+	echo "Caching image..."
+	convert $userpic -resize 120x120 -gravity Center \( \
+		-size 120x120 xc:Black \
+		-fill White \
+		-draw "circle 60 60 60 1" \
+		-alpha Copy\
+		\) -compose CopyOpacity -composite -trim $cropuser
+	echo "Finished caching user image"
+}
+
+scrotblurbg() {
+	scrot 'cache.png' -e 'mv --backup=off $f ~/.cache/mantablockscreen/'
+	convert -scale 25% -blur 0x0.75 -resize 400% "$cachepath/cache.png" "$cachepath/cache-blur.png"
+}
+
+scrotgenbg() {
+	scrotblurbg
+	composite -geometry "+$((half_width-60))+$((half_height-40))" $cropuser $cachepath/cache-blur.png $cachepath/resize-pic-sc-blur.png
+}
+
+lock() {
+	scrotgenbg
+	date_now=$(date +'%b, %d')
+	i3lock -n -e --pass-media-keys --pass-screen-keys --force-clock -i $cachepath/resize-pic-sc-blur.png \
+	--indpos="w/2:h/2+20" --timepos="w/2:h/2-80" --datepos="w/2:h/2-55" --greeterpos="w/2:h/2+110"\
+	--insidevercolor=16181a66 --insidewrongcolor=$wrong_color --insidecolor=fefefe00 \
+	--ringvercolor=c4c5c5ff --ringwrongcolor=$wrong_color --ringcolor=727297ff \
+	--keyhlcolor=c4c5c5ff --bshlcolor=$highlight_color --separatorcolor=00000000 \
+	--datecolor=727297ff --timecolor=727297ff --greetercolor=727297ff \
+	--timestr="%I:%M %p" --timesize=50 \
+	--datestr="%A %B %d %Y" --datesize=20 \
+	--line-uses-inside --radius 60 --ring-width 2 --indicator \
+	--verifcolor=727297ff --verifsize=14 --wrongcolor=727297ff --wrongsize=16 --greetersize=30 \
+	--veriftext="Compiling..."  --wrongtext="Error!" --noinputtext="" --greetertext=""$USER"" \
+	--clock --time-font=Anka/Coder --date-font=Anka/Coder --verif-font=Anka/Coder --wrong-font=Anka/Coder --greeter-font=Anka/Coder
+	#sleep 1
+	#xdotool key --clearmodifiers q
+}
+
+show_help(){
+	cat <<-EOF
+	Usage :
+	 mantablockscreen [OPTION]
+
+	Avaible options:
+	 -i, --image             Generate cache image
+	 -h, --help              Show this help
+
+	EOF
+}
+
+case $1 in
+	-i|--image)
+		cropuser ;;
+	-h|--help)
+		show_help ;;
+	*)
+		lock ;;
+esac

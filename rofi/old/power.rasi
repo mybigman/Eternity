@@ -1,0 +1,65 @@
+* {
+    background-color: #00000000;
+    text-color: #727297;
+    font: "Anka/Coder Regular 14";
+    highlight: none;
+}
+ 
+window {
+    width: 15%;
+    height: 37%;
+    text-color: #c4c4c5;
+    background-color: #181819D9;
+    border: 2px;
+    border-color: #9999cc;
+    border-radius: 10px;
+}
+ 
+mainbox {
+    padding: 2% 2% 2% 2%;
+    background-color: #00000000;
+}
+ 
+inputbar {
+    background-color: #00000000;
+    padding: 5px 5px 5px 5px;
+    border: 1px;
+    border-radius: 5px;
+    border-color: #c4c4c5;
+}
+ 
+prompt {
+    background-color: #00000000;
+    padding: 0px 5px 0px 0px;
+}
+ 
+entry {
+    background-color: #00000000;
+}
+ 
+message {
+    background-color: #00000000;
+}
+ 
+textbox {
+    background-color: #00000000;
+    font: "Anka/Coder 14";
+}
+ 
+sidebar {
+    background-color: #00000000;
+}
+ 
+listview {
+    background-color: #00000000;
+    dynamic: true;
+}
+element {
+    padding: 15px 0px;
+}
+element selected {
+    text-color: #c4c5c5;
+}
+ci {
+    text-color: #00000000;
+}

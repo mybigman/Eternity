@@ -1,0 +1,17 @@
+#!/bin/sh
+
+killall sxhkd &
+killall picom &
+killall /usr/lib/geoclue-2.0/demos/agent &
+killall pulseaudio &
+killall redshift &
+killall dunst &
+killall unclutter &
+killall desknamer &
+#killall btops &
+killall xss-lock &
+killall python &
+#killall io.elementary.desktop.agent-polkit &
+killall polkit-mate-authentication-agent-1 &
+killall udiskie &
+killall xwinwrap &

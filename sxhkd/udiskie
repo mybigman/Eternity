@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [[ $(lsblk | grep "sdb") == "" ]];
+then
+	dunstify -u normal -t 3000 "No drives to unmount"
+else
+	udiskie-umount -ade
+fi
